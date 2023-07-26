@@ -31,7 +31,7 @@ class Product(BaseModel):
     weight: float
     category: str
     dateFirstAvailable: str
-    reviews: Review | None = None
+    reviews: list[Review] | None = None
     netQuantityAvailable: float
     netQuantityUnit: str
     categoryRank: int
