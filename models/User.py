@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-from Address import Address
+from models.Address import Address
 
 class Card(BaseModel):
     no: str
@@ -13,7 +13,7 @@ class User(BaseModel):
     lastName: str
     mobileNo: list[str]
     address: list[Address]
-    cart: list[str]
-    cards: list[Card]
-    pastOrders: list[str]
+    cart: list[str] | None = None
+    cards: list[Card] | None = None
+    pastOrders: list[str] | None = None
  

@@ -8,7 +8,8 @@ router = APIRouter()
 
 @router.post('/add')
 def addNewUser(user:User):
-    return user
+    response = conn.ecom.users.insert_one(user.dict())
+    return {"status":200, "message": "Success"}
 
 @router.get('/{id}')
 def getUserDetails(id:str):

@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-from Address import Address
+from models.Address import Address
 
 class Order(BaseModel):
     id: str
