@@ -1,10 +1,13 @@
-from pymongo import MongoClient
-from util.secrets import mongodb
+import motor.motor_asyncio
 
-conn = MongoClient(mongodb)
-try:
-    # Send a ping to confirm a successful connection
-    conn.admin.command('ping')
-    print("Connected!")
-except Exception as e:
-    print(e)
+from util.secrets import mongodb as MONGODB_URI
+
+client = motor.motor_asyncio.AsyncIOMotorClient(MONGODB_URI)
+
+if client:
+    print('client', client)
+    print("MongoDB connection successful.")
+else:
+    print("connection failed!")
+
+db = client["ecom"]
