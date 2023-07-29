@@ -31,9 +31,8 @@ class User:
     
     async def getUserCart(id):
         try:
-            response = db.products.aggregate([
-                { "$match": { "_id": ObjectId('64c2bd304e4dfc48baeba16c') } },
-                { "$project": { "cart":1, "_id":0 } },
+            response = db.users.aggregate([
+                { "$match": { "_id": ObjectId(id) } },
                 {
                     "$lookup": {
                         "from": 'products',
@@ -42,12 +41,15 @@ class User:
                         "as": 'cartDetails'
                     }
                 },
-                { "$project": {"cartDetails.title":1} }
+                { "$project": {"cartDetails":1, "_id":0} }
             ])
-            print(response)
+            itemList = []
             async for item in response:
-                item['_id'] = str(item['_id'])
-            return {"status":200, "message": "Success", "data": response}
+                for document in item['cartDetails']:
+                    document['_id'] = str(document['_id'])
+                    itemList.append(document)
+            print(itemList)
+            return {"status":200, "message": "Success", "data": itemList}
         except Exception as error:
             print(error)
             return {"status":500, "message":"An error occured while getting cart details"}
