@@ -16,19 +16,22 @@ def get_all_products():
 
 @router.post('/add')
 def addNewProduct(product: productModel):
-    print('in add')
-    response = conn.ecom.products.insert_one(product.dict())
-    print(response)
-    return {"status":200, "message": "Student added successfully!"}
+    response = product_service.addNewProduct(product)
+    if(response['status'] != 200):
+        return response
+    return {"status":200, "message":"Success"}
+    
 
 @router.get('/{id}')
 async def getProduct(id: str):
-    response = conn.ecom.products.find_one({"_id":ObjectId(id)})
-    response['_id'] = str(response['_id'])
-    return response    
+    response = product_service.getProduct(id)
+    if(response['status'] != 200):
+        return response
+    return {"status":200, "message":"Success", "data":response['data']}
 
 @router.delete('/delete/{id}')
 def deleteProduct(id:str):
-    response = conn.ecom.products.delete_one({"_id": ObjectId(id)})
-    print(response)
-    return {"status":200, "message": "Product Successfully Deleted."}
+    response = product_service.deleteProduct(id)
+    if(response != 200):
+        return response
+    return {"status":200, "message":"Success"}
