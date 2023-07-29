@@ -6,7 +6,6 @@ class ProductSize(BaseModel):
     height: float
 
 class Review(BaseModel):
-    id: str 
     title: str
     description: str
     rating: float
@@ -15,7 +14,6 @@ class Review(BaseModel):
     images: list[str] | None = None
 
 class Product(BaseModel):
-    id: str | None = None
     title: str
     productDescription: str
     brand: str

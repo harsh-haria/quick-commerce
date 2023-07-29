@@ -8,7 +8,6 @@ class Card(BaseModel):
     expiryYear: int
 
 class User(BaseModel):
-    id: str | None = None
     firstName: str
     lastName: str
     mobileNo: list[str]
