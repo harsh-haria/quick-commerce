@@ -48,8 +48,16 @@ class User:
                 for document in item['cartDetails']:
                     document['_id'] = str(document['_id'])
                     itemList.append(document)
-            print(itemList)
             return {"status":200, "message": "Success", "data": itemList}
         except Exception as error:
             print(error)
             return {"status":500, "message":"An error occured while getting cart details"}
+        
+    def removeProductFromCart():
+        return ''
+    
+    def checkout():
+        return ''
+
+    def getPrevOrders():
+        return ''

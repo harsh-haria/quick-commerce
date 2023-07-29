@@ -13,7 +13,7 @@ class Product:
             print(error)
             return {"status":500, "message":"An Error occured while adding a new product"}
 
-    async def getProducts(self):
+    async def getAllProducts(self):
         try:
             print('in get products')
             response = db.products.find({})
@@ -45,3 +45,6 @@ class Product:
         except Exception as error:
             print(error)
             return {"status":500, "message":"Some error occured while deleting product"}
+        
+    def updateProduct():
+        return ''

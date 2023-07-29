@@ -12,7 +12,7 @@ product_service = Product()
 
 @router.get("/getall")
 async def get_all_products():
-    return await product_service.getProducts()
+    return await product_service.getAllProducts()
 
 @router.post('/add')
 async def addNewProduct(product: productModel):
