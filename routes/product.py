@@ -4,19 +4,19 @@ from bson import ObjectId
 
 from models.product import Product as productModel 
 
-from config import conn
+from config import db
 
 router = APIRouter()
 
 product_service = Product()
 
 @router.get("/getall")
-def get_all_products():
-    return product_service.getProduct()
+async def get_all_products():
+    return await product_service.getProducts()
 
 @router.post('/add')
-def addNewProduct(product: productModel):
-    response = product_service.addNewProduct(product)
+async def addNewProduct(product: productModel):
+    response = await product_service.addNewProduct(product)
     if(response['status'] != 200):
         return response
     return {"status":200, "message":"Success"}
@@ -24,7 +24,7 @@ def addNewProduct(product: productModel):
 
 @router.get('/{id}')
 async def getProduct(id: str):
-    response = product_service.getProduct(id)
+    response = await product_service.getProduct(id)
     if(response['status'] != 200):
         return response
     return {"status":200, "message":"Success", "data":response['data']}
