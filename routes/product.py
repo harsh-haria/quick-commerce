@@ -1,10 +1,9 @@
 from fastapi import APIRouter
-from controllers.product import Product
 from bson import ObjectId
 
 from models.product import Product as productModel 
 
-from config import db
+from controllers.product import Product
 
 router = APIRouter()
 
@@ -20,7 +19,6 @@ async def addNewProduct(product: productModel):
     if(response['status'] != 200):
         return response
     return {"status":200, "message":"Success"}
-    
 
 @router.get('/{id}')
 async def getProduct(id: str):

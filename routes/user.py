@@ -1,10 +1,7 @@
 from fastapi import APIRouter
-from bson import ObjectId
 
 from models.User import User
 from models.AddToCard import AddToCard as AddToCartModel
-
-from config import db
 
 from controllers.user import User as user_service
 
