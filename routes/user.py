@@ -35,3 +35,10 @@ async def getUserCart(id:str):
     if(response['status'] != 200):
         return response
     return {"status":200, "message":"Success", "data": response['data']}
+
+@router.put('/removeProductFromCart')
+async def removeProduct(id:str, product:str):
+    response = await user_service.removeProductFromCart(id, product)
+    if(response.status != 200):
+        return response
+    return {"status":200, "message":"Successfully removed the product from the cart."}

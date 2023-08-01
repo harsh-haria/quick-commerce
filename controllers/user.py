@@ -53,8 +53,17 @@ class User:
             print(error)
             return {"status":500, "message":"An error occured while getting cart details"}
         
-    def removeProductFromCart():
-        return ''
+    async def removeProductFromCart(id, product):
+        try:
+            response = await db.users.updateOne(
+                { "_id" : ObjectId(id) },
+                { "$pull": { "cart": ObjectId(product) } }
+            )
+            print(response)
+            return {"status":200, "message":"Success"}
+        except Exception as error:
+            print(error)
+            return {"status":500, "message":"An error occured while removing the product"}
     
     def checkout():
         return ''
