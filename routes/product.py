@@ -2,6 +2,7 @@ from fastapi import APIRouter
 from bson import ObjectId
 
 from models.product import Product as productModel 
+from models.product import UpdateProduct as updateModel
 
 from controllers.product import Product
 
@@ -31,5 +32,13 @@ async def getProduct(id: str):
 def deleteProduct(id:str):
     response = product_service.deleteProduct(id)
     if(response != 200):
+        return response
+    return {"status":200, "message":"Success"}
+
+@router.put('/updateProduct')
+async def updateProduct(product:updateModel):
+    productObject = dict(product)
+    response = await product_service.updateProduct(productObject)
+    if(response['status'] != 200):
         return response
     return {"status":200, "message":"Success"}

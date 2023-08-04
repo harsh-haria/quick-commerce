@@ -33,6 +33,37 @@ class Product(BaseModel):
     netQuantityAvailable: float
     netQuantityUnit: str
     categoryRank: int
+    manufacturingDate: str
+    expirationDate: str
+    isReturnable: bool
+    vegNonveg: bool
+    isCertified: bool
+    extraDetailsBrand: str
+    warehouse: str
+    productImages: list[str]
+
+class UpdateProduct(BaseModel):
+    id: str
+    title: str
+    productDescription: str
+    brand: str
+    modelNo: str
+    mrp: float
+    costPrice: float
+    sellingPrice: float
+    seller: str
+    countryOfOrigin: str
+    genericName: str
+    manufacturer: str
+    sizeLength: ProductSize
+    weight: float
+    category: str
+    dateFirstAvailable: str
+    reviews: list[Review] | None = None
+    netQuantityAvailable: float
+    netQuantityUnit: str
+    categoryRank: int
+    manufacturingDate: str
     expirationDate: str
     isReturnable: bool
     vegNonveg: bool

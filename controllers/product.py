@@ -1,5 +1,5 @@
 from bson import ObjectId
-
+from fastapi.encoders import jsonable_encoder
 from config import db
 
 
@@ -46,10 +46,44 @@ class Product:
             print(error)
             return {"status":500, "message":"Some error occured while deleting product"}
         
-    async def updateProduct(self, id):
+    async def updateProduct(self, product):
         try:
-            response = await db.products.updateOne({"_id":ObjectId(id)})
-            return {"status":200, "message": "Product Successfully Updated."}
+            productId = product['id']
+            updatedProduct = jsonable_encoder(product)
+            # updatedProduct = {
+            #     "title": product['title'],
+            #     "productDescription": product['productDescription'],
+            #     "brand": product['brand'],
+            #     "modelNo": product['modelNo'],
+            #     "mrp": product['mrp'],
+            #     "costPrice": product['costPrice'],
+            #     "sellingPrice": product['sellingPrice'],
+            #     "seller": product['seller'],
+            #     "countryOfOrigin": product['countryOfOrigin'],
+            #     "genericName": product['genericName'],
+            #     "manufacturer": product['manufacturer'],
+            #     "sizeLength": product['sizeLength'],
+            #     "weight": product['weight'],
+            #     "category": product['category'],
+            #     "dateFirstAvailable": product['dateFirstAvailable'],
+            #     "reviews": product['reviews'],
+            #     "netQuantityAvailable": product['netQuantityAvailable'],
+            #     "netQuantityUnit": product['netQuantityUnit'],
+            #     "categoryRank": product['categoryRank'],
+            #     "manufacturingDate": product['manufacturingDate'],
+            #     "expirationDate": product['expirationDate'],
+            #     "isReturnable": product['isReturnable'],
+            #     "vegNonveg": product['vegNonveg'],
+            #     "isCertified": product['isCertified'],
+            #     "extraDetailsBrand": product['extraDetailsBrand'],
+            #     "warehouse": product['warehouse'],
+            #     "productImages": product['productImages'],
+            # }
+            response = await db.products.update_one(
+                {"_id":ObjectId(productId)},
+                {"$set": updatedProduct }
+            )
+            return {"status":200, "message": "Product Successfully Updated.", "data":response}
         except Exception as error:
             print(error)
             return {"status":500, "message":"Some error occured while updating the product"}
