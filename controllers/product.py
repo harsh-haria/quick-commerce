@@ -26,7 +26,7 @@ class Product:
             print(error)
             return {"status":500, "message":"Some Error occoured while getting product details"}
 
-    async def getProduct(self,id):
+    async def getProduct(self, id):
         try:
             response = await db.products.find_one({"_id":ObjectId(id)})
             if(response):
@@ -46,5 +46,10 @@ class Product:
             print(error)
             return {"status":500, "message":"Some error occured while deleting product"}
         
-    def updateProduct():
-        return ''
+    async def updateProduct(self, id):
+        try:
+            response = await db.products.updateOne({"_id":ObjectId(id)})
+            return {"status":200, "message": "Product Successfully Updated."}
+        except Exception as error:
+            print(error)
+            return {"status":500, "message":"Some error occured while updating the product"}
