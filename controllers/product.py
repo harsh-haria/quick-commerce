@@ -49,6 +49,7 @@ class Product:
     async def updateProduct(self, product):
         try:
             productId = product['id']
+            product.pop('id')
             updatedProduct = jsonable_encoder(product)
             # updatedProduct = {
             #     "title": product['title'],

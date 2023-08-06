@@ -10,3 +10,5 @@ class Order(BaseModel):
     paymentMethod: str
     orderStatus: str
     invoice: str
+    items: str
+    
