@@ -42,3 +42,10 @@ async def removeProduct(id:str, product:str):
     if(response.status != 200):
         return response
     return {"status":200, "message":"Successfully removed the product from the cart."}
+
+@router.post('/checkout')
+async def checkoutCart(id:str):
+    response = await user_service.checkout(id)
+    if(response.status == 500):
+        return response
+    return {"status":200, "message":"Order created Successfully"}
