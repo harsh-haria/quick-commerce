@@ -39,13 +39,13 @@ async def getUserCart(id:str):
 @router.put('/removeProductFromCart')
 async def removeProduct(id:str, product:str):
     response = await user_service.removeProductFromCart(id, product)
-    if(response.status != 200):
+    if(response['status'] != 200):
         return response
     return {"status":200, "message":"Successfully removed the product from the cart."}
 
-@router.post('/checkout')
+@router.post('/checkout/{id}')
 async def checkoutCart(id:str):
     response = await user_service.checkout(id)
-    if(response.status == 500):
+    if(response['status'] == 500):
         return response
-    return {"status":200, "message":"Order created Successfully"}
+    return {"status":200, "message":"Order created Successfully", "data":response['ids']}

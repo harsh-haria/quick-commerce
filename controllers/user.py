@@ -65,8 +65,48 @@ class User:
             print(error)
             return {"status":500, "message":"An error occured while removing the product"}
     
-    def checkout():
-        return ''
+    async def checkout(userId):
+        """
+            {
+                "user":ObjectId('123abcd'),
+                "deliveryAddress":{
+                    "room":105,
+                    "floor":10,
+                    "building":"Hirani Towers",
+                    "road" : "LBS Road",
+                    "landmark": "Opposite SDK Hospital"
+                },
+                "orderDate":"1970-01-01T00:00:00.000Z",
+                "orderValue": 1233.55,
+                "paymentMethod": "Card",
+                "orderStatus": "Complete",
+                "invoice": "www.xyz.com/prod/images/uuid.pdf",
+                "items": [ ObjectId('123123123'), ObjectId('456745674') ]
+            }
+        """
+        try:
+            orderIds = db.users.aggregate([
+                {"$match":{"_id": ObjectId(userId) }},
+                {"$project": {"cart":1,"_id":0}}
+            ])
+            itemList = []
+            async for item in orderIds:
+                print(item)
+                for document in item['cart']:
+                    document = str(document)
+                    itemList.append(document)
+            #get products to calculate final order value
+
+            #caluculate stuff required
+
+            #create the final object
+
+            #insert the object
+            createOrder = db.orders.insert_one()
+            return {"status":200, "message":"Success"}
+        except Exception as error:
+            print(error)
+            return {"status":500, "message":"An error occured while checking the order out"}
 
     def getPrevOrders():
         return ''
